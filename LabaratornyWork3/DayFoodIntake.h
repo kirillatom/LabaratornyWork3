@@ -6,23 +6,26 @@ using namespace std;
 class DayFoodIntake
 {
 public:
-    /// </summary>Конструктор с параметром</summary>
+    /// <summary>Конструктор с параметром</summary>
     /// <param name="countIntake"></param>
     DayFoodIntake(unsigned int& countIntake);
-    //Конструктор копирования
+    // <summary> Конструктор копирования  </summary>
     DayFoodIntake(const DayFoodIntake& other);
-    // Деструктор
+    //  <summary> Деструктор  </summary>
     ~DayFoodIntake();
-    // Геттеры
+    // <summary> Геттеры  </summary>
     float GetMassG() const;
     float GetVolumeCcal() const;
-    /// <summary>Метод расчёта данных</summary>
+    // <summary> Метод расчёта данных</summary>
     void MealLog(const float& massG, const unsigned int& mealNumber,
         const float& protein, const float& fat, const float& carbohydrate);
-    /// <summary> Метод вывода данных </summary>
-    void OutputData();
-    void OutputData(unsigned int mealNumber);
+    // <summary> Метод вывода данных </summary>
+    void OutputData() const;
+    // <summary> Перегрузка метода вывода </summary>
+    void OutputData(unsigned int mealNumber) const;
+    // <summary> Перегрузка [] </summary>
     float operator[](unsigned int mealNumber) const;
+    //  <summary> Перегрузка <<  </summary>
     friend ostream& operator<<(ostream& os, const DayFoodIntake& DayFoodIntake);
 private:
     //Массивы
@@ -30,9 +33,9 @@ private:
     float* dynamincFatArray;
     float* dynamincCarbohydrateArray;
     //Поля
-    float massG; //Масса продукта в граммах
-    float volumeCcal; //Объём кило каллорий
     unsigned int countIntake; //Количество приёмов пищи
+    float volumeCcal; //Объём кило каллорий
+    float massG; //Масса продукта в граммах
     unsigned int mealNumber; //Номер приёма пищи 
     float protein;
     float fat;
@@ -45,6 +48,9 @@ private:
     static const unsigned int FAT_CCAL_1G = 9;
     static const unsigned int CARBOHYDRATE_CCAL_1G = 4;
     static const int NEGATIV_VALUE = -1;
-
+    static const unsigned int POZITIVCHIK_VALUE = 1;
+    static const int NULLIK = 0;
+    static const unsigned int ONE_HUNDRED = 100;
+    static const unsigned int ELEVEN = 11;
 };
 

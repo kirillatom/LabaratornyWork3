@@ -1,5 +1,4 @@
 ﻿#include "DayFoodIntake.h"
-#include <iostream>
 
 using namespace std;
 
@@ -24,6 +23,8 @@ int main() {
     cin >> countIntake;
 
     DayFoodIntake Intake(countIntake);
+
+ 
 
     while (continueInput) {
         cout << "Введите номер приёма пищи : ";
@@ -78,6 +79,7 @@ int main() {
             cin >> mealNumb;
             Intake.OutputData(mealNumb);
             cout << "Калории за " << mealNumb << " прием пищи : " << Intake[mealNumb] << endl;
+           
         }
     }
     cout << "Хотели бы вы получить общую сводку БЖУ за все приёмы пищи? Y (yes) / N (no) : ";

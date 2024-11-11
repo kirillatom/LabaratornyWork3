@@ -1,29 +1,41 @@
 #include "DayFoodIntake.h"
 
 DayFoodIntake::DayFoodIntake(unsigned int& countIntake)
-    : countIntake(countIntake), volumeCcal(0), massG(0) {
-
+    : countIntake(countIntake), 
+    volumeCcal(NULLIK),
+    massG(NULLIK) {
+    if (countIntake <= NULLIK)
+    {
+        throw exception((string("Ошибка! Некорректный ввод данных")
+            + ". Пришло: "
+            + to_string(countIntake)).c_str());
+    }
     dynamincProteinArray = new float[countIntake];
     dynamincFatArray = new float[countIntake];
     dynamincCarbohydrateArray = new float[countIntake];
 
-    for (int i = 0; i <= countIntake; i++) {
-        dynamincProteinArray[i] = -1;
-        dynamincFatArray[i] = -1;
-        dynamincCarbohydrateArray[i] = -1;
+    for (int i = NULLIK; i <= countIntake; i++)
+    {
+        dynamincProteinArray[i] = NEGATIV_VALUE;
+        dynamincFatArray[i] = NEGATIV_VALUE;
+        dynamincCarbohydrateArray[i] = NEGATIV_VALUE;
     }
 }
 
 DayFoodIntake::DayFoodIntake(const DayFoodIntake& other)
-    : countIntake(other.countIntake), volumeCcal(other.volumeCcal), massG(other.massG),
-    proteinsAll(other.proteinsAll), fatsAll(other.fatsAll), carbohydratesAll(other.carbohydratesAll) {
+    : countIntake(other.countIntake),
+    volumeCcal(other.volumeCcal), 
+    massG(other.massG),
+    proteinsAll(other.proteinsAll),
+    fatsAll(other.fatsAll), 
+    carbohydratesAll(other.carbohydratesAll) {
 
     dynamincProteinArray = new float[countIntake];
     dynamincFatArray = new float[countIntake];
     dynamincCarbohydrateArray = new float[countIntake];
 
-    // Копируем данные из другого объекта
-    for (int i = 0; i < countIntake; i++) {
+    for (int i = NULLIK; i < countIntake; i++)
+    {
         dynamincProteinArray[i] = other.dynamincProteinArray[i];
         dynamincFatArray[i] = other.dynamincFatArray[i];
         dynamincCarbohydrateArray[i] = other.dynamincCarbohydrateArray[i];
@@ -48,38 +60,38 @@ float DayFoodIntake::GetVolumeCcal() const
 
 void DayFoodIntake::MealLog(const float& massG, const unsigned int& mealNumber, const float& protein, const float& fat, const float& carbohydrate) {
 
-    if (massG <= 0)
+    if (massG <= NULLIK)
     {
         throw exception((string("Ошибка! Некорректный ввод данных")
             + ". Пришло: "
             + to_string(massG)).c_str());
     }
 
-    if (mealNumber < 1)
+    if (mealNumber < POZITIVCHIK_VALUE)
     {
         throw exception((string("Ошибка! Некорректный ввод данных")
             + ". Пришло: "
             + to_string(mealNumber)).c_str());
     }
-    if (mealNumber >= 11)
+    if (mealNumber >= ELEVEN)
     {
         throw exception((string("Ошибка! Некорректный ввод данных")
             + ". Пришло: "
             + to_string(mealNumber)).c_str());
     }
-    if (protein < 0)
+    if (protein < NULLIK)
     {
         throw exception((string("Ошибка! Некорректный ввод данных")
             + ". Пришло: "
             + to_string(protein)).c_str());
     }
-    if (fat < 0)
+    if (fat < NULLIK)
     {
         throw exception((string("Ошибка! Некорректный ввод данных")
             + ". Пришло: "
             + to_string(fat)).c_str());
     }
-    if (carbohydrate < 0)
+    if (carbohydrate < NULLIK)
     {
         throw exception((string("Ошибка! Некорректный ввод данных")
             + ". Пришло: "
@@ -89,25 +101,25 @@ void DayFoodIntake::MealLog(const float& massG, const unsigned int& mealNumber, 
 
     this->massG += massG; 
 
-    dynamincProteinArray[mealNumber - 1] += (protein / 100) * massG;
-    volumeCcal += dynamincProteinArray[mealNumber - 1] * PROTEIN_CCAL_1G;
-    dynamincFatArray[mealNumber - 1] += (fat / 100) * massG;
-    volumeCcal += dynamincFatArray[mealNumber - 1] * FAT_CCAL_1G;
-    dynamincCarbohydrateArray[mealNumber - 1] += (carbohydrate / 100) * massG;
-    volumeCcal += dynamincCarbohydrateArray[mealNumber - 1] * CARBOHYDRATE_CCAL_1G;
+    dynamincProteinArray[mealNumber - POZITIVCHIK_VALUE] += (protein / ONE_HUNDRED) * massG;
+    volumeCcal += dynamincProteinArray[mealNumber - POZITIVCHIK_VALUE] * PROTEIN_CCAL_1G;
+    dynamincFatArray[mealNumber - POZITIVCHIK_VALUE] += (fat / ONE_HUNDRED) * massG;
+    volumeCcal += dynamincFatArray[mealNumber - POZITIVCHIK_VALUE] * FAT_CCAL_1G;
+    dynamincCarbohydrateArray[mealNumber - POZITIVCHIK_VALUE] += (carbohydrate / ONE_HUNDRED) * massG;
+    volumeCcal += dynamincCarbohydrateArray[mealNumber - POZITIVCHIK_VALUE] * CARBOHYDRATE_CCAL_1G;
 
-    proteinsAll += (protein / 100) * massG;
-    fatsAll += (fat / 100) * massG;
-    carbohydratesAll += (carbohydrate / 100) * massG;
+    proteinsAll += (protein / ONE_HUNDRED) * massG;
+    fatsAll += (fat / ONE_HUNDRED) * massG;
+    carbohydratesAll += (carbohydrate / ONE_HUNDRED) * massG;
 
 }
 
-void DayFoodIntake::OutputData()
+void DayFoodIntake::OutputData() const
 {
-    for (int i = 0; i < countIntake; i++) {
+    for (int i = NULLIK; i < countIntake; i++) {
         if (dynamincProteinArray[i] != NEGATIV_VALUE && dynamincFatArray[i] != NEGATIV_VALUE && dynamincCarbohydrateArray[i] != NEGATIV_VALUE)
         {
-            cout << "Сводка БЖУ за " << i + 1 << " приём пищи: " << endl;
+            cout << "Сводка БЖУ за " << i + POZITIVCHIK_VALUE << " приём пищи: " << endl;
             cout << "Белки: " << dynamincProteinArray[i] << " |"
                 << " Жиры: " << dynamincFatArray[i] << " |"
                 << " Углеводы: " << dynamincCarbohydrateArray[i] << endl;
@@ -119,13 +131,13 @@ void DayFoodIntake::OutputData()
 
 
 }
-void DayFoodIntake::OutputData(unsigned int mealNumber) 
+void DayFoodIntake::OutputData(unsigned int mealNumber) const
 {
-    if (mealNumber < 1 || mealNumber > countIntake)
+    if (mealNumber < POZITIVCHIK_VALUE || mealNumber > countIntake)
     {
         throw exception((string("Ошибка! Некорректный номер приема пищи") + ". Пришло: " + to_string(mealNumber)).c_str());
     }
-    int index = mealNumber - 1;
+    int index = mealNumber - POZITIVCHIK_VALUE;
     if (dynamincProteinArray[index] != NEGATIV_VALUE &&
         dynamincFatArray[index] != NEGATIV_VALUE &&
         dynamincCarbohydrateArray[index] != NEGATIV_VALUE) {
@@ -140,13 +152,13 @@ void DayFoodIntake::OutputData(unsigned int mealNumber)
     }
 }
     float DayFoodIntake::operator[](unsigned int mealNumber) const {
-        if (mealNumber < 1 || mealNumber > countIntake) {
+        if (mealNumber < POZITIVCHIK_VALUE || mealNumber > countIntake) {
             throw std::runtime_error("Ошибка! Некорректный номер приема пищи. Пришло: " + std::to_string(mealNumber));
         }
 
-        int index = mealNumber - 1;
+        int index = mealNumber + NEGATIV_VALUE;
 
-        float totalCalories = 0;
+        float totalCalories = NULLIK;
 
         if (dynamincProteinArray[index] != NEGATIV_VALUE) {
             totalCalories += dynamincProteinArray[index] * PROTEIN_CCAL_1G;
@@ -165,9 +177,9 @@ void DayFoodIntake::OutputData(unsigned int mealNumber)
     ostream& operator<<(ostream& os, const DayFoodIntake& dayFoodIntake) 
     {
         os << "Сводная информация о приемах пищи:";
-        os << "Общая масса: " << dayFoodIntake.massG << " гn";
-        os << "Общий объем калорий: " << dayFoodIntake.volumeCcal << " ккалn";
-        os << "Всего белков: " << dayFoodIntake.proteinsAll << " гn";
-        os << "Всего жиров: " << dayFoodIntake.fatsAll << " гn";
-        os << "Всего углеводов: " << dayFoodIntake.carbohydratesAll << " гn";
+        os << "Общая масса: " << dayFoodIntake.massG << " г";
+        os << "Общий объем калорий: " << dayFoodIntake.volumeCcal << " ккал";
+        os << "Всего белков: " << dayFoodIntake.proteinsAll << " г";
+        os << "Всего жиров: " << dayFoodIntake.fatsAll << " г";
+        os << "Всего углеводов: " << dayFoodIntake.carbohydratesAll << " г";
     }
