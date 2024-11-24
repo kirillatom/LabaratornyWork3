@@ -26,8 +26,8 @@ int main() {
     cout << "Введите количество приёмов пищи" << endl;
     cin >> countIntake;
 
-    DayFoodIntake Intake(countIntake, humanMass);
-    BorderBJU Intake2;
+    DayFoodIntake Intake(countIntake);
+    BorderBJU Intake2(humanMass);
 
     while (continueInput) {
         cout << "Введите номер приёма пищи : ";

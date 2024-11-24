@@ -1,6 +1,6 @@
 #include "BorderBJU.h"
 
-BorderBJU::BorderBJU() {}
+BorderBJU::BorderBJU(const float& humanMass) : humanMass(humanMass) {}
 
 bool BorderBJU::BorderProteinCheck()
 {
@@ -36,4 +36,24 @@ bool BorderBJU::BorderCarbohydrateCheck()
 		cout << "Вы вышли за дневную норму углеводов!!!" << endl;
 		return false;
 	}
+}
+
+float BorderBJU::GetProteinLimit() const
+{
+	return proteinLimit;
+}
+
+float BorderBJU::GetFatLimit() const
+{
+	return fatLimit;
+}
+
+float BorderBJU::GetCarbohydrateLimit() const
+{
+	return carbohydrateLimit;
+}
+
+float BorderBJU::GetHumanMass() const 
+{
+	return humanMass;
 }

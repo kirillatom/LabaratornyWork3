@@ -1,3 +1,6 @@
+#ifndef DAY_FOOD_INTAKE_H
+#define DAY_FOOD_INTAKE_H
+
 #include <iostream>
 #include <string>
 
@@ -10,12 +13,11 @@ public:
     float proteinsAll = 0;
     float fatsAll = 0;
     float carbohydratesAll = 0;
-    float humanMass;
     unsigned int countIntake; //Количество приёмов пищи
     DayFoodIntake();
     /// <summary>Конструктор с параметром</summary>
     /// <param name="countIntake"></param>
-    DayFoodIntake(unsigned int& countIntake, float& humanMass);
+    DayFoodIntake(unsigned int& countIntake);
     // <summary> Конструктор копирования  </summary>
     DayFoodIntake(const DayFoodIntake& other);
     //  <summary> Деструктор  </summary>
@@ -57,4 +59,4 @@ private:
     static const unsigned int ONE_HUNDRED = 100;
     static const unsigned int ELEVEN = 11;
 };
-
+#endif DAY_FOOD_INTAKE_H

@@ -2,9 +2,8 @@
 
 DayFoodIntake::DayFoodIntake() {}
 
-DayFoodIntake::DayFoodIntake(unsigned int& countIntake, float& humanMass)
+DayFoodIntake::DayFoodIntake(unsigned int& countIntake)
     : countIntake(countIntake), 
-    humanMass(humanMass),
     volumeCcal(NULLIK),
     massG(NULLIK) {
     if (countIntake <= NULLIK)
@@ -13,12 +12,7 @@ DayFoodIntake::DayFoodIntake(unsigned int& countIntake, float& humanMass)
             + ". Пришло: "
             + to_string(countIntake)).c_str());
     }
-    if (humanMass <= NULLIK)
-    {
-        throw exception((string("Ошибка! Некорректный ввод данных")
-            + ". Пришло: "
-            + to_string(humanMass)).c_str());
-    }
+    
     dynamincProteinArray = new float[countIntake];
     dynamincFatArray = new float[countIntake];
     dynamincCarbohydrateArray = new float[countIntake];
@@ -137,8 +131,6 @@ void DayFoodIntake::OutputData() const
     cout << "Общее количество белков: " << proteinsAll << endl;
     cout << "Общее количество жиров: " << fatsAll << endl;
     cout << "Общее количество углеводов: " << carbohydratesAll << endl;
-
-
 }
 void DayFoodIntake::OutputData(unsigned int mealNumber) const
 {
@@ -161,28 +153,28 @@ void DayFoodIntake::OutputData(unsigned int mealNumber) const
     }
 }
     float DayFoodIntake::operator[](unsigned int mealNumber) const {
-        if (mealNumber < POZITIVCHIK_VALUE || mealNumber > countIntake) {
-            throw std::runtime_error("Ошибка! Некорректный номер приема пищи. Пришло: " + std::to_string(mealNumber));
-        }
-
-        int index = mealNumber + NEGATIV_VALUE;
-
-        float totalCalories = NULLIK;
-
-        if (dynamincProteinArray[index] != NEGATIV_VALUE) {
-            totalCalories += dynamincProteinArray[index] * PROTEIN_CCAL_1G;
-        }
-
-        if (dynamincFatArray[index] != NEGATIV_VALUE) {
-            totalCalories += dynamincFatArray[index] * FAT_CCAL_1G;
-        }
-
-        if (dynamincCarbohydrateArray[index] != NEGATIV_VALUE) {
-            totalCalories += dynamincCarbohydrateArray[index] * CARBOHYDRATE_CCAL_1G;
-        }
-
-        return totalCalories;
+    if (mealNumber < POZITIVCHIK_VALUE || mealNumber >= countIntake) {
+        throw std::runtime_error("Ошибка! Некорректный номер приема пищи. Пришло: " + std::to_string(mealNumber));
     }
+
+    int index = mealNumber - POZITIVCHIK_VALUE;
+
+    float totalCalories = NULLIK;
+
+    if (dynamincProteinArray[index] != NEGATIV_VALUE) {
+        totalCalories += dynamincProteinArray[index] * PROTEIN_CCAL_1G;
+    }
+
+    if (dynamincFatArray[index] != NEGATIV_VALUE) {
+        totalCalories += dynamincFatArray[index] * FAT_CCAL_1G;
+    }
+
+    if (dynamincCarbohydrateArray[index] != NEGATIV_VALUE) {
+        totalCalories += dynamincCarbohydrateArray[index] * CARBOHYDRATE_CCAL_1G;
+    }
+
+    return totalCalories;
+}
     ostream& operator<<(ostream& os, const DayFoodIntake& dayFoodIntake) 
     {
         os << "Сводная информация о приемах пищи:";
