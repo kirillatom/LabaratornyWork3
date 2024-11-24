@@ -6,9 +6,16 @@ using namespace std;
 class DayFoodIntake
 {
 public:
+    //поля
+    float proteinsAll = 0;
+    float fatsAll = 0;
+    float carbohydratesAll = 0;
+    float humanMass;
+    unsigned int countIntake; //Количество приёмов пищи
+    DayFoodIntake();
     /// <summary>Конструктор с параметром</summary>
     /// <param name="countIntake"></param>
-    DayFoodIntake(unsigned int& countIntake);
+    DayFoodIntake(unsigned int& countIntake, float& humanMass);
     // <summary> Конструктор копирования  </summary>
     DayFoodIntake(const DayFoodIntake& other);
     //  <summary> Деструктор  </summary>
@@ -33,16 +40,13 @@ private:
     float* dynamincFatArray;
     float* dynamincCarbohydrateArray;
     //Поля
-    unsigned int countIntake; //Количество приёмов пищи
+   
     float volumeCcal; //Объём кило каллорий
     float massG; //Масса продукта в граммах
     unsigned int mealNumber; //Номер приёма пищи 
     float protein;
     float fat;
     float carbohydrate;
-    float proteinsAll = 0;
-    float fatsAll = 0;
-    float carbohydratesAll = 0;
     //Константы
     static const unsigned int PROTEIN_CCAL_1G = 4;
     static const unsigned int FAT_CCAL_1G = 9;

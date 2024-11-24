@@ -1,7 +1,10 @@
 #include "DayFoodIntake.h"
 
-DayFoodIntake::DayFoodIntake(unsigned int& countIntake)
+DayFoodIntake::DayFoodIntake() {}
+
+DayFoodIntake::DayFoodIntake(unsigned int& countIntake, float& humanMass)
     : countIntake(countIntake), 
+    humanMass(humanMass),
     volumeCcal(NULLIK),
     massG(NULLIK) {
     if (countIntake <= NULLIK)
@@ -9,6 +12,12 @@ DayFoodIntake::DayFoodIntake(unsigned int& countIntake)
         throw exception((string("Ошибка! Некорректный ввод данных")
             + ". Пришло: "
             + to_string(countIntake)).c_str());
+    }
+    if (humanMass <= NULLIK)
+    {
+        throw exception((string("Ошибка! Некорректный ввод данных")
+            + ". Пришло: "
+            + to_string(humanMass)).c_str());
     }
     dynamincProteinArray = new float[countIntake];
     dynamincFatArray = new float[countIntake];
@@ -182,4 +191,5 @@ void DayFoodIntake::OutputData(unsigned int mealNumber) const
         os << "Всего белков: " << dayFoodIntake.proteinsAll << " г";
         os << "Всего жиров: " << dayFoodIntake.fatsAll << " г";
         os << "Всего углеводов: " << dayFoodIntake.carbohydratesAll << " г";
+        return os;
     }
