@@ -1,6 +1,6 @@
 #include "DayFoodIntake.h"
 
-DayFoodIntake::DayFoodIntake() {}
+
 
 DayFoodIntake::DayFoodIntake(unsigned int& countIntake)
     : countIntake(countIntake), 

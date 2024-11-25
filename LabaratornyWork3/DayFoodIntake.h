@@ -9,12 +9,6 @@ using namespace std;
 class DayFoodIntake
 {
 public:
-    //поля
-    float proteinsAll = 0;
-    float fatsAll = 0;
-    float carbohydratesAll = 0;
-    unsigned int countIntake; //Количество приёмов пищи
-    DayFoodIntake();
     /// <summary>Конструктор с параметром</summary>
     /// <param name="countIntake"></param>
     DayFoodIntake(unsigned int& countIntake);
@@ -36,6 +30,12 @@ public:
     float operator[](unsigned int mealNumber) const;
     //  <summary> Перегрузка <<  </summary>
     friend ostream& operator<<(ostream& os, const DayFoodIntake& DayFoodIntake);
+protected:
+    //поля
+    float proteinsAll = 0;
+    float fatsAll = 0;
+    float carbohydratesAll = 0;
+    unsigned int countIntake; //Количество приёмов пищи
 private:
     //Массивы
     float* dynamincProteinArray;
@@ -58,5 +58,6 @@ private:
     static const int NULLIK = 0;
     static const unsigned int ONE_HUNDRED = 100;
     static const unsigned int ELEVEN = 11;
+
 };
 #endif DAY_FOOD_INTAKE_H

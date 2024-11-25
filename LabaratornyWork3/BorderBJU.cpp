@@ -1,39 +1,47 @@
 #include "BorderBJU.h"
 
-BorderBJU::BorderBJU(const float& humanMass) : humanMass(humanMass) {}
+BorderBJU::BorderBJU(unsigned int& countIntake,const float& humanMass) : DayFoodIntake(countIntake), humanMassGr(humanMass)
+{ 
+	if (humanMassGr <= 400 || humanMassGr >= 645000)
+	{
+		throw exception((string("Ошибка! Некорректный ввод данных")
+			+ ". Пришло: "
+			+ to_string(humanMassGr)).c_str());
+	}
+}
 
-bool BorderBJU::BorderProteinCheck()
+bool BorderBJU::BorderProteinCheck() const
 {
 	if (proteinsAll < proteinLimit) 
 	{
 		return true;
 	}
-	else {
-		cout << "Вы вышли за дневную норму белка!!!" << endl;
+	else
+	{
 		return false;
 	}
 }
 
-bool BorderBJU::BorderFatCheck()
+bool BorderBJU::BorderFatCheck() const
 {
 	if(fatsAll < fatLimit)
 	{
 		return true;
 	}
-	else {
-		cout << "Вы вышли за дневную норму жиров!!!" << endl;
+	else 
+	{
 		return false;
 	}
 }
 
-bool BorderBJU::BorderCarbohydrateCheck()
+bool BorderBJU::BorderCarbohydrateCheck() const
 {
 	if(carbohydratesAll < carbohydrateLimit)
 	{
 		return true;
 	}
-	else {
-		cout << "Вы вышли за дневную норму углеводов!!!" << endl;
+	else 
+	{
 		return false;
 	}
 }
@@ -55,5 +63,60 @@ float BorderBJU::GetCarbohydrateLimit() const
 
 float BorderBJU::GetHumanMass() const 
 {
-	return humanMass;
+	return humanMassGr;
+}
+
+void BorderBJU::setHumanMass(float humanMassGr) 
+{
+	this->humanMassGr = humanMassGr;
+}
+
+void BorderBJU::setProteinLimit(float proteinLimit) 
+{
+	this->proteinLimit = proteinLimit;
+}
+
+void BorderBJU::setFatLimit(float fatLimit) 
+{
+	this->fatLimit = fatLimit;
+}
+
+void BorderBJU::setCarbohydrateLimit(float carbohydrateLimit) 
+{
+	this->carbohydrateLimit = carbohydrateLimit;
+}
+
+void BorderBJU::OutputData() const
+{
+	DayFoodIntake::OutputData();
+	if (!BorderProteinCheck())
+	{
+		cout << "Вы вышли за дневную норму белка!!!" << endl;
+		cout << "Вы съели " << proteinsAll << " грамм белка" << endl;
+		cout << "Ваша дневная норма белка: " << proteinLimit << endl;
+	}
+	else
+	{
+		cout << "Вы можете кушать ещё " << proteinsAll - proteinLimit << " грамм белка" << endl;
+	}
+	if (!BorderFatCheck())
+	{
+		cout << "Вы вышли за дневную норму жиров!!!" << endl;
+		cout << "Вы съели " << fatsAll << "грамм жиров" << endl;
+		cout << "Ваша дневная норма жиров: " << fatLimit << endl;
+	}
+	else
+	{
+		cout << "Вы можете кушать ещё " << fatsAll - fatLimit << " грамм жиров" << endl;
+	}
+	if (!BorderCarbohydrateCheck())
+	{
+		cout << "Вы вышли за дневную норму углеводов!!!" << endl;
+		cout << "Вы съели " << carbohydratesAll << " грамм углеводов" << endl;
+		cout << "Ваша дневная норма углеводов: " << carbohydrateLimit << endl;
+	}
+	else
+	{
+		cout << "Вы можете кушать ещё " << carbohydratesAll - carbohydrateLimit << " грамм углеводов" << endl;
+	}
 }
