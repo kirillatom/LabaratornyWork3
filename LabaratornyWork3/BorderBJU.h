@@ -1,30 +1,32 @@
 #pragma once
 #include "DayFoodIntake.h"
 
-class BorderBJU : public DayFoodIntake
-{
+template<typename T>
+class BorderBJU : public DayFoodIntake<T> {
 public:
-	BorderBJU(unsigned int& countIntake, float& humanMass);
-	// методы
-	bool BorderProteinCheck() const;
-	bool BorderFatCheck() const;
-	bool BorderCarbohydrateCheck() const;
-	//селекторы
-	float GetProteinLimit() const;
-	float GetFatLimit() const;
-	float GetCarbohydrateLimit() const;
-	float GetHumanMass() const;
+    BorderBJU(unsigned int& countIntake, T& humanMass);
 
-	void setHumanMass(float humanMassGr);
-	void setProteinLimit(float proteinLimit);
-	void setFatLimit(float fatLimit);
-	void setCarbohydrateLimit(float carbohydrateLimit);
-	void OutputData() const;
-	
+    // Методы проверки норм БЖУ
+    bool BorderProteinCheck() const;
+    bool BorderFatCheck() const;
+    bool BorderCarbohydrateCheck() const;
+
+    // Селекторы
+    T GetProteinLimit() const;
+    T GetFatLimit() const;
+    T GetCarbohydrateLimit() const;
+    T GetHumanMass() const;
+
+    void setHumanMass(T humanMass);
+    void setProteinLimit(T proteinLimit);
+    void setFatLimit(T fatLimit);
+    void setCarbohydrateLimit(T carbohydrateLimit);
+
+    // Вывод данных
+    void OutputData() const;
 
 private:
-	//поля
-	float proteinLimit = (humanMass / 1000) * 0.8;
-	float fatLimit = (humanMass / 1000) * 0.9;
-	float carbohydrateLimit = (humanMass / 1000) * 2;
+    T proteinLimit;
+    T fatLimit;
+    T carbohydrateLimit;
 };

@@ -1,16 +1,9 @@
 #include "DayFoodIntake.h"
 
-DayFoodIntake::DayFoodIntake(const int& countIntake, float& humanMass)
-    : countIntake(countIntake), 
-    volumeCcal(NULLIK),
-    massG(NULLIK) {
-    if (countIntake <= NULLIK)
-    {
-        throw exception((string("Ошибка! Некорректный ввод данных")
-            + ". Пришло: "
-            + to_string(countIntake)).c_str());
-    }
-  
+template<typename T>
+DayFoodIntake<T>::DayFoodIntake(const int& countIntake, T& humanMass)
+    : countIntake(countIntake), massG(0), volumeCcal(0), proteinsAll(0), fatsAll(0), carbohydratesAll(0) {
+
     dynamincProteinArray = new float[countIntake];
     dynamincFatArray = new float[countIntake];
     dynamincCarbohydrateArray = new float[countIntake];
@@ -23,7 +16,7 @@ DayFoodIntake::DayFoodIntake(const int& countIntake, float& humanMass)
     }
 }
 
-DayFoodIntake::DayFoodIntake(const DayFoodIntake& other)
+DayFoodIntake<T>::DayFoodIntake(const DayFoodIntake& other)
     : countIntake(other.countIntake),
     volumeCcal(other.volumeCcal), 
     massG(other.massG),
@@ -42,24 +35,26 @@ DayFoodIntake::DayFoodIntake(const DayFoodIntake& other)
         dynamincCarbohydrateArray[i] = other.dynamincCarbohydrateArray[i];
     }
 }
-DayFoodIntake::~DayFoodIntake()
+DayFoodIntake<T>::~DayFoodIntake()
 {
     delete[] dynamincProteinArray;
     delete[] dynamincFatArray;
     delete[] dynamincCarbohydrateArray;
 }
 
-float DayFoodIntake::GetMassG() const 
-{
+template<typename T>
+T DayFoodIntake<T>::GetMassG() const {
     return massG;
 }
 
-float DayFoodIntake::GetVolumeCcal() const
-{
+template<typename T>
+T DayFoodIntake<T>::GetVolumeCcal() const {
     return volumeCcal;
 }
 
-void DayFoodIntake::MealLog(const float& massG, const unsigned int& mealNumber, const float& protein, const float& fat, const float& carbohydrate)  {
+void DayFoodIntake<T>::MealLog(const T& massG, const unsigned int& mealNumber,
+    const float& protein, const float& fat, const float& carbohydrate); 
+{
 
     if (massG <= NULLIK)
     {
@@ -100,7 +95,7 @@ void DayFoodIntake::MealLog(const float& massG, const unsigned int& mealNumber, 
     }
 
 
-    this->massG += massG; 
+    this->massG += massG;
 
     dynamincProteinArray[mealNumber - POZITIVCHIK_VALUE] += (protein / ONE_HUNDRED) * massG;
     volumeCcal += dynamincProteinArray[mealNumber - POZITIVCHIK_VALUE] * PROTEIN_CCAL_1G;
@@ -115,7 +110,8 @@ void DayFoodIntake::MealLog(const float& massG, const unsigned int& mealNumber, 
 
 }
 
-void DayFoodIntake::OutputData() const 
+template<typename T>
+void DayFoodIntake<T>::OutputData() const
 {
     for (int i = NULLIK; i < countIntake; i++) {
         if (dynamincProteinArray[i] != NEGATIV_VALUE && dynamincFatArray[i] != NEGATIV_VALUE && dynamincCarbohydrateArray[i] != NEGATIV_VALUE)
@@ -130,7 +126,8 @@ void DayFoodIntake::OutputData() const
     cout << "Общее количество жиров: " << fatsAll << endl;
     cout << "Общее количество углеводов: " << carbohydratesAll << endl;
 }
-void DayFoodIntake::OutputData(unsigned int mealNumber) const
+template<typename T>
+void DayFoodIntake<T>::OutputData(unsigned int mealNumber) const
 {
     if (mealNumber < POZITIVCHIK_VALUE || mealNumber > countIntake)
     {
@@ -150,7 +147,8 @@ void DayFoodIntake::OutputData(unsigned int mealNumber) const
         cout << "Данные за " << mealNumber << " приём пищи отсутствуют." << endl;
     }
 }
-    float DayFoodIntake::operator[](unsigned int mealNumber) const {
+    float DayFoodIntake::operator[](unsigned int mealNumber) const 
+    {
     if (mealNumber < POZITIVCHIK_VALUE || mealNumber >= countIntake) {
         throw std::runtime_error("Ошибка! Некорректный номер приема пищи. Пришло: " + std::to_string(mealNumber));
     }
@@ -183,3 +181,5 @@ void DayFoodIntake::OutputData(unsigned int mealNumber) const
         os << "Всего углеводов: " << dayFoodIntake.carbohydratesAll << " г";
         return os;
     }
+    template class DayFoodIntake<int>;
+    template class DayFoodIntake<double>;

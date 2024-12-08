@@ -16,7 +16,7 @@ int main() {
     float b = 0, j = 0, u = 0;
     const int countIntake = 15;
     char choice4;
-    float humanMass;
+    double humanMass;
 
     cout << "\t\t\t------------------------------------------------------------------" << endl;
     cout << "\t\t\t|Программа хранения и обработки данных о суточном рационе питания|" << endl;
@@ -99,5 +99,9 @@ int main() {
     {
         cout << Intake;
     }
-    delete Intake[0];
+    for (int i = 0; i < countIntake; ++i) 
+    {
+        delete Intake[i]; 
+    }
+
 }

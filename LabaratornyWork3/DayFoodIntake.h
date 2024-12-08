@@ -7,22 +7,22 @@
 
 using namespace std;
 
-
+template<typename T>
 class DayFoodIntake : public AbstractionPFC
 {
 public:
     /// <summary>Конструктор с параметром</summary>
     /// <param name="countIntake"></param>
-    DayFoodIntake(const int& countIntake, float& humanMass);
+    DayFoodIntake(const int& countIntake, T& humanMass);
     // <summary> Конструктор копирования  </summary>
     DayFoodIntake(const DayFoodIntake& other);
     //  <summary> Деструктор  </summary>
     ~DayFoodIntake();
     // <summary> Геттеры  </summary>
-    float GetMassG() const override;
-    float GetVolumeCcal() const override;
+    T GetMassG() const override;
+    T GetVolumeCcal() const override;
     // <summary> Метод расчёта данных</summary>
-    void MealLog(const float& massG, const unsigned int& mealNumber,
+    void MealLog(const T& massG, const unsigned int& mealNumber,
         const float& protein, const float& fat, const float& carbohydrate) override;
     // <summary> Метод вывода данных </summary>
     void OutputData() const override;
@@ -37,10 +37,10 @@ public:
     friend ostream& operator<<(ostream& os, const DayFoodIntake& DayFoodIntake);
 protected:
     //поля
-    float proteinsAll = 0;
-    float fatsAll = 0;
-    float carbohydratesAll = 0;
-    const int countIntake; //Количество приёмов пищи
+    T massG;
+    T volumeCcal;
+    T proteinsAll, fatsAll, carbohydratesAll;
+    const int countIntake;
     float humanMass;
 private:
     //Массивы
@@ -48,8 +48,7 @@ private:
     float* dynamincFatArray;
     float* dynamincCarbohydrateArray;
     //Поля
-    float volumeCcal; //Объём кило каллорий
-    float massG; //Масса продукта в граммах
+   
     unsigned int mealNumber; //Номер приёма пищи 
     float protein;
     float fat;
@@ -65,4 +64,5 @@ private:
     static const unsigned int ELEVEN = 11;
 
 };
+
 #endif DAY_FOOD_INTAKE_H

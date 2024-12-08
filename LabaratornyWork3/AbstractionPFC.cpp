@@ -1,5 +1,5 @@
 #include "AbstractionPFC.h"
 
-AbstractionPFC::~AbstractionPFC()
+AbstractionPFC<T>::~AbstractionPFC()
 {
 }
