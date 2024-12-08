@@ -24,12 +24,18 @@
     <ClCompile Include="BorderBJU.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="AbstractionPFC.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DayFoodIntake.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="BorderBJU.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractionPFC.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

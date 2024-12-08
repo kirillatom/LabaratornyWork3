@@ -4,7 +4,7 @@
 class BorderBJU : public DayFoodIntake
 {
 public:
-	BorderBJU(unsigned int& countIntake, const float& humanMass);
+	BorderBJU(unsigned int& countIntake, float& humanMass);
 	// методы
 	bool BorderProteinCheck() const;
 	bool BorderFatCheck() const;
@@ -24,9 +24,7 @@ public:
 
 private:
 	//поля
-	float proteinLimit = (humanMassGr / 1000) * 0.8;
-	float fatLimit = (humanMassGr / 1000) * 0.9;
-	float carbohydrateLimit = (humanMassGr / 1000) * 2;
-	float humanMassGr;
-	
+	float proteinLimit = (humanMass / 1000) * 0.8;
+	float fatLimit = (humanMass / 1000) * 0.9;
+	float carbohydrateLimit = (humanMass / 1000) * 2;
 };

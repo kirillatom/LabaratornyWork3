@@ -1,5 +1,6 @@
 ﻿#include "DayFoodIntake.h"
 #include "BorderBJU.h"
+#include "AbstractionPFC.h"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ int main() {
     bool productInput = true;
     bool mealInput = true;
     float b = 0, j = 0, u = 0;
-    unsigned int countIntake;
+    const int countIntake = 15;
     char choice4;
     float humanMass;
 
@@ -23,11 +24,11 @@ int main() {
 
     cout << "Введите ваш вес в граммах" << endl;
     cin >> humanMass;
-    cout << "Введите количество приёмов пищи" << endl;
-    cin >> countIntake;
-
-    DayFoodIntake Intake(countIntake);
-    BorderBJU Intake2(countIntake,humanMass);
+ 
+    AbstractionPFC* Intake[countIntake];
+    Intake[0] = new DayFoodIntake(countIntake, humanMass);
+    //DayFoodIntake Intake(countIntake);
+   // BorderBJU Intake2(countIntake,humanMass);
 
     while (continueInput) {
         cout << "Введите номер приёма пищи : ";
@@ -46,10 +47,10 @@ int main() {
 
             cout << "Введите количество углеводов на 100г: ";
             cin >> u;
-            Intake.MealLog(mass, meal, b, j, u);
-            Intake2.BorderProteinCheck();
-            Intake2.BorderFatCheck();
-            Intake2.BorderCarbohydrateCheck();
+            Intake[meal]->MealLog(mass, meal, b, j, u);
+            Intake[meal]->BorderProteinCheck();
+            Intake[meal]->BorderFatCheck();
+            Intake[meal]->BorderCarbohydrateCheck();
 
             char choice2;
 
@@ -83,7 +84,7 @@ int main() {
             int mealNumb;
             cout << "Введите число, за какой приём пищи хотели бы получить информацию : " ;
             cin >> mealNumb;
-            Intake.OutputData(mealNumb);
+            Intake[mealNumb]->OutputData();
             cout << "Калории за " << mealNumb << " прием пищи : " << Intake[mealNumb] << endl;
            
         }
@@ -98,4 +99,5 @@ int main() {
     {
         cout << Intake;
     }
+    delete Intake[0];
 }

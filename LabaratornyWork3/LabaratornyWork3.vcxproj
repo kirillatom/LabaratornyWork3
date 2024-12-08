@@ -127,11 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractionPFC.cpp" />
     <ClCompile Include="BorderBJU.cpp" />
     <ClCompile Include="DayFoodIntake.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractionPFC.h" />
     <ClInclude Include="BorderBJU.h" />
     <ClInclude Include="DayFoodIntake.h" />
   </ItemGroup>

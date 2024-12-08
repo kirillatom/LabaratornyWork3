@@ -3,31 +3,36 @@
 
 #include <iostream>
 #include <string>
+#include "AbstractionPFC.h"
 
 using namespace std;
 
-class DayFoodIntake
+
+class DayFoodIntake : public AbstractionPFC
 {
 public:
     /// <summary>Конструктор с параметром</summary>
     /// <param name="countIntake"></param>
-    DayFoodIntake(unsigned int& countIntake);
+    DayFoodIntake(const int& countIntake, float& humanMass);
     // <summary> Конструктор копирования  </summary>
     DayFoodIntake(const DayFoodIntake& other);
     //  <summary> Деструктор  </summary>
     ~DayFoodIntake();
     // <summary> Геттеры  </summary>
-    float GetMassG() const;
-    float GetVolumeCcal() const;
+    float GetMassG() const override;
+    float GetVolumeCcal() const override;
     // <summary> Метод расчёта данных</summary>
     void MealLog(const float& massG, const unsigned int& mealNumber,
-        const float& protein, const float& fat, const float& carbohydrate);
+        const float& protein, const float& fat, const float& carbohydrate) override;
     // <summary> Метод вывода данных </summary>
-    void OutputData() const;
+    void OutputData() const override;
     // <summary> Перегрузка метода вывода </summary>
-    void OutputData(unsigned int mealNumber) const;
+    void OutputData(unsigned int mealNumber) const override;
+    virtual bool BorderProteinCheck() const;
+    virtual bool BorderFatCheck() const;
+    virtual bool BorderCarbohydrateCheck() const;
     // <summary> Перегрузка [] </summary>
-    float operator[](unsigned int mealNumber) const;
+    float operator[](unsigned int mealNumber) const override;
     //  <summary> Перегрузка <<  </summary>
     friend ostream& operator<<(ostream& os, const DayFoodIntake& DayFoodIntake);
 protected:
@@ -35,14 +40,14 @@ protected:
     float proteinsAll = 0;
     float fatsAll = 0;
     float carbohydratesAll = 0;
-    unsigned int countIntake; //Количество приёмов пищи
+    const int countIntake; //Количество приёмов пищи
+    float humanMass;
 private:
     //Массивы
     float* dynamincProteinArray;
     float* dynamincFatArray;
     float* dynamincCarbohydrateArray;
     //Поля
-   
     float volumeCcal; //Объём кило каллорий
     float massG; //Масса продукта в граммах
     unsigned int mealNumber; //Номер приёма пищи 

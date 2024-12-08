@@ -1,8 +1,6 @@
 #include "DayFoodIntake.h"
 
-
-
-DayFoodIntake::DayFoodIntake(unsigned int& countIntake)
+DayFoodIntake::DayFoodIntake(const int& countIntake, float& humanMass)
     : countIntake(countIntake), 
     volumeCcal(NULLIK),
     massG(NULLIK) {
@@ -12,7 +10,7 @@ DayFoodIntake::DayFoodIntake(unsigned int& countIntake)
             + ". Пришло: "
             + to_string(countIntake)).c_str());
     }
-    
+  
     dynamincProteinArray = new float[countIntake];
     dynamincFatArray = new float[countIntake];
     dynamincCarbohydrateArray = new float[countIntake];
@@ -51,7 +49,7 @@ DayFoodIntake::~DayFoodIntake()
     delete[] dynamincCarbohydrateArray;
 }
 
-float DayFoodIntake::GetMassG() const
+float DayFoodIntake::GetMassG() const 
 {
     return massG;
 }
@@ -61,7 +59,7 @@ float DayFoodIntake::GetVolumeCcal() const
     return volumeCcal;
 }
 
-void DayFoodIntake::MealLog(const float& massG, const unsigned int& mealNumber, const float& protein, const float& fat, const float& carbohydrate) {
+void DayFoodIntake::MealLog(const float& massG, const unsigned int& mealNumber, const float& protein, const float& fat, const float& carbohydrate)  {
 
     if (massG <= NULLIK)
     {
@@ -117,7 +115,7 @@ void DayFoodIntake::MealLog(const float& massG, const unsigned int& mealNumber, 
 
 }
 
-void DayFoodIntake::OutputData() const
+void DayFoodIntake::OutputData() const 
 {
     for (int i = NULLIK; i < countIntake; i++) {
         if (dynamincProteinArray[i] != NEGATIV_VALUE && dynamincFatArray[i] != NEGATIV_VALUE && dynamincCarbohydrateArray[i] != NEGATIV_VALUE)

@@ -1,15 +1,9 @@
 #include "BorderBJU.h"
 
-BorderBJU::BorderBJU(unsigned int& countIntake,const float& humanMass) : DayFoodIntake(countIntake), humanMassGr(humanMass)
-{ 
-	if (humanMassGr <= 400 || humanMassGr >= 645000)
-	{
-		throw exception((string("Ошибка! Некорректный ввод данных")
-			+ ". Пришло: "
-			+ to_string(humanMassGr)).c_str());
-	}
-}
+BorderBJU::BorderBJU(unsigned int& countIntake, float& humanMass)
+	: DayFoodIntake(countIntake, humanMass) {}
 
+// методы
 bool BorderBJU::BorderProteinCheck() const
 {
 	if (proteinsAll < proteinLimit) 
@@ -63,12 +57,12 @@ float BorderBJU::GetCarbohydrateLimit() const
 
 float BorderBJU::GetHumanMass() const 
 {
-	return humanMassGr;
+	return humanMass;
 }
 
 void BorderBJU::setHumanMass(float humanMassGr) 
 {
-	this->humanMassGr = humanMassGr;
+	this->humanMass = humanMass;
 }
 
 void BorderBJU::setProteinLimit(float proteinLimit) 
