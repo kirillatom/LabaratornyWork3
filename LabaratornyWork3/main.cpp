@@ -1,6 +1,8 @@
-﻿#include "DayFoodIntake.h"
-#include "BorderBJU.h"
+﻿
 #include "AbstractionPFC.h"
+#include "DayFoodIntake.h"
+#include "BorderBJU.h"
+
 
 using namespace std;
 
@@ -25,8 +27,8 @@ int main() {
     cout << "Введите ваш вес в граммах" << endl;
     cin >> humanMass;
  
-    AbstractionPFC* Intake[countIntake];
-    Intake[0] = new DayFoodIntake(countIntake, humanMass);
+    AbstractionPFC<double>* Intake[countIntake];
+    Intake[0] = new DayFoodIntake<double>(countIntake);
     //DayFoodIntake Intake(countIntake);
    // BorderBJU Intake2(countIntake,humanMass);
 
@@ -84,7 +86,7 @@ int main() {
             int mealNumb;
             cout << "Введите число, за какой приём пищи хотели бы получить информацию : " ;
             cin >> mealNumb;
-            Intake[mealNumb]->OutputData();
+            Intake[mealNumb]->OutputData(mealNumb);
             cout << "Калории за " << mealNumb << " прием пищи : " << Intake[mealNumb] << endl;
            
         }
